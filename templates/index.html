@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Basit Chat</h1>
+    <input id="msg" autocomplete="off">
+    <button onclick="sendMessage()">Gönder</button>
+    <ul id="messages"></ul>
+
+    <script>
+        var socket = io();
+        function sendMessage() {
+            var msg = document.getElementById('msg').value;
+            socket.send(msg);
+            document.getElementById('msg').value = '';
+        }
+        socket.on('message', function(msg){
+            var li = document.createElement("li");
+            li.textContent = msg;
+            document.getElementById("messages").appendChild(li);
+        });
+    </script>
+</body>
+</html>
